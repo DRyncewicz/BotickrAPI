@@ -7,7 +7,7 @@ public class EventRepository(IBaseRepository _baseRepository) : IEventRepository
 {
     private readonly IBaseRepository _baseRepository = _baseRepository;
 
-    public async Task<int> AddAsnyc(EventEntity eventEntity, CancellationToken ct)
+    public async Task<int> AddAsync(EventEntity eventEntity, CancellationToken ct)
     {
         await _baseRepository.AddAsync(eventEntity, ct);  
         await _baseRepository.SaveAsync(ct);

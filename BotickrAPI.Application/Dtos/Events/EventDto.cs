@@ -1,4 +1,6 @@
 ﻿using BotickrAPI.Application.Dtos.Tickets;
+using BotickrAPI.Application.Helpers;
+using System.Text.Json.Serialization;
 
 namespace BotickrAPI.Application.Dtos.Events;
 
@@ -14,11 +16,12 @@ public class EventDto
 
     public DateTime StartTime { get; set; }
 
+    [JsonConverter(typeof(TimeSpanConverter))]
     public TimeSpan Duration { get; set; }
 
     public int LocationId { get; set; }
 
     public IEnumerable<int> ArtistIds { get; set; } = [];
 
-    public TicketDto TicketDto { get; set; } = new();
+    public IEnumerable<TicketDto> TicketDto { get; set; } = [];
 }
