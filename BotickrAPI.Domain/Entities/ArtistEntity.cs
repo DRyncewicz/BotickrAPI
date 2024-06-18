@@ -20,7 +20,7 @@ public class ArtistEntity : AuditableEntity
 
     public int Likes { get; set; } = 0;
 
-    public ICollection<TicketEntity> Tickets { get; set; }
+    public ICollection<TicketEntity> Tickets { get; set; } = [];
 
-    public ICollection<EventEntity> Events { get; set; }
+    public ICollection<EventEntity> Events { get; set; } = [];
 }

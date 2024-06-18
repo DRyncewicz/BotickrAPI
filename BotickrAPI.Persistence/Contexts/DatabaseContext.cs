@@ -4,6 +4,7 @@ using System.Reflection;
 using BotickrAPI.Domain.Entities.Common;
 using BotickrAPI.Domain.Entities;
 using BotickrAPI.Application.Abstractions.Services;
+using BotickrAPI.Persistence.Seeds;
 
 namespace BotickrAPI.Persistence.DbContext
 {
@@ -34,9 +35,15 @@ namespace BotickrAPI.Persistence.DbContext
             _dateTime = dateTime;
         }
 
+        public void Migrate()
+        {
+            Database.Migrate();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.LocationDataSeed();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
