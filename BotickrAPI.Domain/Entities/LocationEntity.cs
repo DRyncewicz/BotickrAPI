@@ -4,11 +4,11 @@ namespace BotickrAPI.Domain.Entities;
 
 public class LocationEntity : AuditableEntity
 {
-    public string City { get; set; }
+    public string City { get; set; } = string.Empty;
 
-    public string Venue { get; set; }
+    public string Venue { get; set; } = String.Empty;
 
     public int Capacity { get; set; }
 
-    public ICollection<EventEntity> Events { get; set; }
+    public ICollection<EventEntity> Events { get; set; } = [];
 }
