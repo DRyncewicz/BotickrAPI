@@ -5,9 +5,13 @@ using BotickrAPI.Domain.Entities;
 
 namespace BotickrAPI.Persistence.Configurations;
 
-public class LocationEntityConfiguration : IEntityTypeConfiguration<LocationEntity>
+public static class LocationEntityConfiguration 
 {
-    public void Configure(EntityTypeBuilder<LocationEntity> builder)
+    public static void Configure(ModelBuilder modelBuilder)
+    {
+        SetLocation(modelBuilder.Entity<LocationEntity>());
+    }
+    public static void SetLocation(EntityTypeBuilder<LocationEntity> builder)
     {
         builder.Property(p => p.City).IsRequired();
         builder.Property(p => p.Venue).IsRequired();

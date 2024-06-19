@@ -4,6 +4,7 @@ using BotickrAPI.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BotickrAPI.Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240619204732_test1")]
+    partial class test1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,7 +89,7 @@ namespace BotickrAPI.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artists", (string)null);
+                    b.ToTable("Artists");
                 });
 
             modelBuilder.Entity("BotickrAPI.Domain.Entities.BookingDetailEntity", b =>
@@ -134,7 +137,7 @@ namespace BotickrAPI.Persistence.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("BookingDetails", (string)null);
+                    b.ToTable("BookingDetails");
                 });
 
             modelBuilder.Entity("BotickrAPI.Domain.Entities.BookingEntity", b =>
@@ -186,7 +189,7 @@ namespace BotickrAPI.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bookings", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("BotickrAPI.Domain.Entities.EventArtistsEntity", b =>
@@ -201,7 +204,7 @@ namespace BotickrAPI.Persistence.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("EventArtists", (string)null);
+                    b.ToTable("EventArtists");
                 });
 
             modelBuilder.Entity("BotickrAPI.Domain.Entities.EventEntity", b =>
@@ -272,7 +275,7 @@ namespace BotickrAPI.Persistence.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Events", (string)null);
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("BotickrAPI.Domain.Entities.EventReviewEntity", b =>
@@ -323,7 +326,7 @@ namespace BotickrAPI.Persistence.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("EventReviews", (string)null);
+                    b.ToTable("EventReviews");
                 });
 
             modelBuilder.Entity("BotickrAPI.Domain.Entities.LocationEntity", b =>
@@ -369,7 +372,7 @@ namespace BotickrAPI.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Locations");
 
                     b.HasData(
                         new
@@ -486,7 +489,7 @@ namespace BotickrAPI.Persistence.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("Tickets", (string)null);
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("BotickrAPI.Domain.Entities.BookingDetailEntity", b =>

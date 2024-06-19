@@ -4,9 +4,13 @@ using BotickrAPI.Domain.Entities;
 
 namespace BotickrAPI.Persistence.Configurations;
 
-public class BookingEntityConfiguration : IEntityTypeConfiguration<BookingEntity>
+public static class BookingEntityConfiguration
 {
-    public void Configure(EntityTypeBuilder<BookingEntity> builder)
+    public static void Configure(ModelBuilder modelBuilder)
+    {
+        SetBooking(modelBuilder.Entity<BookingEntity>());
+    }
+    public static void SetBooking(EntityTypeBuilder<BookingEntity> builder)
     {
         builder.Property(p => p.BookingTime).IsRequired();
         builder.Property(p => p.TotalPrice).IsRequired();

@@ -9,7 +9,6 @@ public class TicketProfile : Profile
     public TicketProfile()
     {
         CreateMap<NewTicketDto, TicketEntity>()
-            .ForMember(dest => dest.EventId, method => method.MapFrom(src => src.EventId))
             .ForMember(dest => dest.Price, method => method.MapFrom(src => src.Price))
             .ForMember(dest => dest.Quantity, method => method.MapFrom(src => src.Quantity))
             .ForMember(dest => dest.TicketType, method => method.MapFrom(src => src.TicketType))

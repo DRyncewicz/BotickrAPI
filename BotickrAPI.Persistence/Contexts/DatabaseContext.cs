@@ -5,6 +5,7 @@ using BotickrAPI.Domain.Entities.Common;
 using BotickrAPI.Domain.Entities;
 using BotickrAPI.Application.Abstractions.Services;
 using BotickrAPI.Persistence.Seeds;
+using BotickrAPI.Persistence.Configurations;
 
 namespace BotickrAPI.Persistence.DbContext
 {
@@ -44,7 +45,14 @@ namespace BotickrAPI.Persistence.DbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            BookingEntityConfiguration.Configure(modelBuilder);
+            ArtistEntityConfiguration.Configure(modelBuilder);
+            EventEntityConfiguration.Configure(modelBuilder);
+            EventReviewEntityConfiguration.Configure(modelBuilder);
+            TicketEntityConfiguration.Configure(modelBuilder);
+            LocationEntityConfiguration.Configure(modelBuilder);
+            BookingDetailEntityConfiguration.Configure(modelBuilder);
+            EventArtistsEntityConfiguration.Configure(modelBuilder);
             modelBuilder.LocationDataSeed();
         }
 

@@ -4,12 +4,25 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BotickrAPI.Persistence.Configurations;
 
-public class EventArtistsEntityConfiguration : IEntityTypeConfiguration<EventArtistsEntity>
+public static class EventArtistsEntityConfiguration
 {
-    public void Configure(EntityTypeBuilder<EventArtistsEntity> builder)
+    public static void Configure(ModelBuilder modelBuilder)
+    {
+        SetEventArtists(modelBuilder.Entity<EventArtistsEntity>());
+    }
+    public static void SetEventArtists(EntityTypeBuilder<EventArtistsEntity> builder)
     {
         builder.HasKey(ea => new { ea.ArtistId, ea.EventId });
         builder.Property(p => p.ArtistId).IsRequired();
-        builder.Property(p => p.EventId).IsRequired();  
+        builder.Property(p => p.EventId).IsRequired();
+
+        builder.HasOne(p => p.Event)
+            .WithMany(p => p.EventArtists)
+            .HasForeignKey(p => p.EventId);
+
+        builder.HasOne(e => e.Artist)
+            .WithMany(p => p.EventArtists)
+            .HasForeignKey(e => e.ArtistId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

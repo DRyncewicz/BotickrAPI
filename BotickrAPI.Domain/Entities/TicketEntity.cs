@@ -10,9 +10,9 @@ public class TicketEntity : AuditableEntity
 
     public int Quantity { get; set; }
 
-    public string TicketType { get; set; } = string.Empty;
+    public string TicketType { get; set; } 
 
-    public EventEntity Event { get; set; } = new EventEntity();
+    public EventEntity Event { get; set; }
 
-    public ICollection<BookingDetailEntity> Bookings { get; set; } = [];
+    public ICollection<BookingDetailEntity> Bookings { get; set; }
 }

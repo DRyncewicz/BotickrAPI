@@ -4,7 +4,7 @@ namespace BotickrAPI.Domain.Entities;
 
 public class BookingEntity : AuditableEntity
 {
-    public string UserId { get; set; } = string.Empty;
+    public string UserId { get; set; } 
 
     public int EventId { get; set; }
 
@@ -12,5 +12,5 @@ public class BookingEntity : AuditableEntity
 
     public DateTime BookingTime { get; set; }
 
-    public string Status { get; set; } = string.Empty;
+    public string Status { get; set; } 
 }

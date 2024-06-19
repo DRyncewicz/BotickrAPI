@@ -29,5 +29,8 @@ public class AddEventCommandValidator : AbstractValidator<AddEventCommand>
 
         RuleFor(p => p.NewEvent.StartTime).GreaterThan(DateTime.Now.AddDays(14))
             .WithMessage("Start time should be given a minimum of 2 weeks in advance");
+
+        RuleForEach(p => p.NewEvent.TicketDtos)
+            .SetValidator(new NewTicketDtoValidator());
     }
 }
