@@ -11,5 +11,7 @@ public interface IBaseRepository
 
     void Delete<TEntity>(TEntity entity) where TEntity : class;
 
+    Task AddRangeAsync<TEntity>(IEnumerable<TEntity> entities, CancellationToken ct) where TEntity : class;
+
     Task<int> SaveAsync(CancellationToken ct);
 }

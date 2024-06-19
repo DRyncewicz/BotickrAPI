@@ -1,9 +1,7 @@
 ﻿namespace BotickrAPI.Application.Dtos.Tickets;
 
-public class TicketDto
+public class NewTicketDto
 {
-    public int Id { get; set; } 
-
     public int EventId { get; set; }
 
     public double Price { get; set; }

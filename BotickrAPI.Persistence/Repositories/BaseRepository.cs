@@ -14,6 +14,13 @@ public class BaseRepository(DatabaseContext _dbContext) : IBaseRepository
         await _dbContext.AddAsync(entity, ct);
     }
 
+    public async Task AddRangeAsync<TEntity>(IEnumerable<TEntity> entities, CancellationToken ct) where TEntity : class
+    {
+        ArgumentNullException.ThrowIfNull(entities, nameof(entities));
+
+        await _dbContext.AddRangeAsync(entities);
+    }
+
     public void Delete<TEntity>(TEntity entity) where TEntity : class
     {
         ArgumentNullException.ThrowIfNull(entity, nameof(entity));

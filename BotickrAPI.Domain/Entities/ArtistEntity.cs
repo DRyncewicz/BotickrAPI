@@ -8,6 +8,8 @@ public class ArtistEntity : AuditableEntity
 
     public string Surname { get; set; } = string.Empty;
 
+    public string ImagePath { get; set; } = string.Empty;
+
     public int? Age { get; set; }
 
     public string? ArtName { get; set; }
@@ -22,5 +24,5 @@ public class ArtistEntity : AuditableEntity
 
     public ICollection<TicketEntity> Tickets { get; set; } = [];
 
-    public ICollection<EventEntity> Events { get; set; } = [];
+    public ICollection<EventArtistsEntity> Events { get; set; } = [];
 }

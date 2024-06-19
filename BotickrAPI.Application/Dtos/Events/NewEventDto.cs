@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace BotickrAPI.Application.Dtos.Events;
 
-public class EventDto
+public class NewEventDto
 {
     public string Name { get; set; } = string.Empty;
 
@@ -23,5 +23,5 @@ public class EventDto
 
     public IEnumerable<int> ArtistIds { get; set; } = [];
 
-    public IEnumerable<TicketDto> TicketDto { get; set; } = [];
+    public IEnumerable<NewTicketDto> TicketDtos { get; set; } = [];
 }

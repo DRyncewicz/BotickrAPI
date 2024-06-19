@@ -8,8 +8,7 @@ public class TicketProfile : Profile
 {
     public TicketProfile()
     {
-        CreateMap<TicketDto, TicketEntity>()
-            .ForMember(dest => dest.Id, method => method.MapFrom(src => src.Id))
+        CreateMap<NewTicketDto, TicketEntity>()
             .ForMember(dest => dest.EventId, method => method.MapFrom(src => src.EventId))
             .ForMember(dest => dest.Price, method => method.MapFrom(src => src.Price))
             .ForMember(dest => dest.Quantity, method => method.MapFrom(src => src.Quantity))
