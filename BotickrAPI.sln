@@ -3,21 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotickrAPI", "BotickrAPI\BotickrAPI.csproj", "{9DF1492F-8F35-4448-8ED7-018817A38C1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotickrAPI", "BotickrAPI\BotickrAPI.csproj", "{9DF1492F-8F35-4448-8ED7-018817A38C1B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{BE2301A9-8C9A-4B8E-B226-F107C11E473A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotickrAPI.Domain", "BotickrAPI.Domain\BotickrAPI.Domain.csproj", "{2A137605-A8E0-4852-A686-C2B0EB124018}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotickrAPI.Domain", "BotickrAPI.Domain\BotickrAPI.Domain.csproj", "{2A137605-A8E0-4852-A686-C2B0EB124018}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{9D4DA426-6AF2-4874-9530-F50259A10A6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotickrAPI.Application", "BotickrAPI.Application\BotickrAPI.Application.csproj", "{B25193AB-9514-41E6-B6CE-EC4F48B5F686}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotickrAPI.Application", "BotickrAPI.Application\BotickrAPI.Application.csproj", "{B25193AB-9514-41E6-B6CE-EC4F48B5F686}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotickrAPI.Infrastructure", "BotickrAPI.Infrastructure\BotickrAPI.Infrastructure.csproj", "{E1130A33-1487-4456-A4C3-448A19DD438E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotickrAPI.Infrastructure", "BotickrAPI.Infrastructure\BotickrAPI.Infrastructure.csproj", "{E1130A33-1487-4456-A4C3-448A19DD438E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotickrAPI.Persistence", "BotickrAPI.Persistence\BotickrAPI.Persistence.csproj", "{65F14295-4144-4474-90D5-A1DDC5D43EED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotickrAPI.Persistence", "BotickrAPI.Persistence\BotickrAPI.Persistence.csproj", "{65F14295-4144-4474-90D5-A1DDC5D43EED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A40872A3-0874-46FA-9C44-1A7F1BD1957C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotickrAPI.Application.UnitTests", "BotickrAPI.Application.UnitTests\BotickrAPI.Application.UnitTests.csproj", "{8A77F687-FD47-4722-B8C0-99EA6BE4FD84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotickrAPI.Persistence.IntegrationTests", "BotickrAPI.Persistence.IntegrationTests\BotickrAPI.Persistence.IntegrationTests.csproj", "{4B10A4D9-0218-4C0B-941A-006AEF0DED4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{65F14295-4144-4474-90D5-A1DDC5D43EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65F14295-4144-4474-90D5-A1DDC5D43EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65F14295-4144-4474-90D5-A1DDC5D43EED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A77F687-FD47-4722-B8C0-99EA6BE4FD84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A77F687-FD47-4722-B8C0-99EA6BE4FD84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A77F687-FD47-4722-B8C0-99EA6BE4FD84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A77F687-FD47-4722-B8C0-99EA6BE4FD84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B10A4D9-0218-4C0B-941A-006AEF0DED4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B10A4D9-0218-4C0B-941A-006AEF0DED4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B10A4D9-0218-4C0B-941A-006AEF0DED4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B10A4D9-0218-4C0B-941A-006AEF0DED4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +67,8 @@ Global
 		{B25193AB-9514-41E6-B6CE-EC4F48B5F686} = {BE2301A9-8C9A-4B8E-B226-F107C11E473A}
 		{E1130A33-1487-4456-A4C3-448A19DD438E} = {9D4DA426-6AF2-4874-9530-F50259A10A6E}
 		{65F14295-4144-4474-90D5-A1DDC5D43EED} = {9D4DA426-6AF2-4874-9530-F50259A10A6E}
+		{8A77F687-FD47-4722-B8C0-99EA6BE4FD84} = {A40872A3-0874-46FA-9C44-1A7F1BD1957C}
+		{4B10A4D9-0218-4C0B-941A-006AEF0DED4C} = {A40872A3-0874-46FA-9C44-1A7F1BD1957C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E737EBC8-8C9E-46E7-8745-6E6F5569DDC0}
