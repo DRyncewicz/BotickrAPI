@@ -4,5 +4,5 @@ namespace BotickrAPI.Domain.Repositories;
 
 public interface IEventRepository
 {
-    Task<int> AddAsnyc(EventEntity eventEntity, CancellationToken ct);
+    Task<int> AddAsync(EventEntity eventEntity, CancellationToken ct);
 }

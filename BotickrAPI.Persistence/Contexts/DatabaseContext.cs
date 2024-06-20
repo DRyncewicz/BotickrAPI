@@ -26,6 +26,8 @@ namespace BotickrAPI.Persistence.DbContext
 
         public DbSet<LocationEntity> Locations { get; set; }
 
+        public DbSet<EventArtistsEntity> EventArtists { get; set; }
+
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }

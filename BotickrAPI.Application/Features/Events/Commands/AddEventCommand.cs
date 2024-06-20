@@ -5,5 +5,5 @@ namespace BotickrAPI.Application.Features.Events.Commands;
 
 public class AddEventCommand : IRequest<int>
 {
-    public EventDto NewEvent { get; set; } = new EventDto();
+    public NewEventDto NewEvent { get; set; } = new NewEventDto();
 }

@@ -12,5 +12,10 @@ namespace BotickrAPI.Persistence.Repositories
         {
             return await _baseRepository.GetAll<LocationEntity>().ToListAsync();
         }
+
+        public async Task<LocationEntity> GetByIdAsync(int locationId, CancellationToken ct)
+        {
+            return await _baseRepository.GetAll<LocationEntity>().FirstOrDefaultAsync(x => x.Id == locationId, ct) ?? new();
+        }
     }
 }

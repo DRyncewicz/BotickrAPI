@@ -28,5 +28,5 @@ public class EventEntity : AuditableEntity
 
     public ICollection<TicketEntity> Ticket { get; set; } = [];
 
-    public ICollection<ArtistEntity> Artists { get; set; } = [];
+    public ICollection<EventArtistsEntity> Artists { get; set; } = [];
 }
