@@ -15,7 +15,7 @@ public class TicketProfile : Profile
             .ForMember(dest => dest.Event, method => method.Ignore())
             .ForMember(dest => dest.StatusId, method => method.Ignore())
             .ForMember(dest => dest.Created, method => method.Ignore())
-            .ForMember(dest => dest.Bookings, method => method.Ignore())
+            .ForMember(dest => dest.BookingDetails, method => method.Ignore())
             .ForMember(dest => dest.Modified, method => method.Ignore())
             .ForMember(dest => dest.ModifiedBy, method => method.Ignore())
             .ForMember(dest => dest.Inactivated, method => method.Ignore())

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BotickrAPI.Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240619204732_test1")]
-    partial class test1
+    [Migration("20240620183319_CorrectionOfDatabaseRelationConfig")]
+    partial class CorrectionOfDatabaseRelationConfig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,9 +133,8 @@ namespace BotickrAPI.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookingId");
-
-                    b.HasIndex("TicketId");
+                    b.HasIndex("BookingId")
+                        .IsUnique();
 
                     b.ToTable("BookingDetails");
                 });
@@ -188,6 +187,8 @@ namespace BotickrAPI.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EventId");
 
                     b.ToTable("Bookings");
                 });
@@ -495,20 +496,31 @@ namespace BotickrAPI.Persistence.Migrations
             modelBuilder.Entity("BotickrAPI.Domain.Entities.BookingDetailEntity", b =>
                 {
                     b.HasOne("BotickrAPI.Domain.Entities.BookingEntity", "Booking")
-                        .WithMany()
-                        .HasForeignKey("BookingId")
+                        .WithOne("BookingDetail")
+                        .HasForeignKey("BotickrAPI.Domain.Entities.BookingDetailEntity", "BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BotickrAPI.Domain.Entities.TicketEntity", "Ticket")
-                        .WithMany("Bookings")
-                        .HasForeignKey("TicketId")
+                        .WithMany("BookingDetails")
+                        .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Booking");
 
                     b.Navigation("Ticket");
+                });
+
+            modelBuilder.Entity("BotickrAPI.Domain.Entities.BookingEntity", b =>
+                {
+                    b.HasOne("BotickrAPI.Domain.Entities.EventEntity", "Event")
+                        .WithMany("Bookings")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("BotickrAPI.Domain.Entities.EventArtistsEntity", b =>
@@ -574,8 +586,16 @@ namespace BotickrAPI.Persistence.Migrations
                     b.Navigation("Tickets");
                 });
 
+            modelBuilder.Entity("BotickrAPI.Domain.Entities.BookingEntity", b =>
+                {
+                    b.Navigation("BookingDetail")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BotickrAPI.Domain.Entities.EventEntity", b =>
                 {
+                    b.Navigation("Bookings");
+
                     b.Navigation("EventArtists");
 
                     b.Navigation("Reviews");
@@ -590,7 +610,7 @@ namespace BotickrAPI.Persistence.Migrations
 
             modelBuilder.Entity("BotickrAPI.Domain.Entities.TicketEntity", b =>
                 {
-                    b.Navigation("Bookings");
+                    b.Navigation("BookingDetails");
                 });
 #pragma warning restore 612, 618
         }

@@ -15,5 +15,12 @@ public static class BookingDetailEntityConfiguration
         builder.Property(p => p.BookingId).IsRequired();
         builder.Property(p => p.TicketId).IsRequired();
         builder.Property(p => p.Quantity).IsRequired();
+        builder.HasOne(p => p.Booking)
+            .WithOne(p => p.BookingDetail)
+            .HasForeignKey<BookingDetailEntity>(bd => bd.BookingId);
+
+        builder.HasOne(p => p.Ticket)
+            .WithMany(p => p.BookingDetails)
+            .HasForeignKey(p => p.BookingId);
     }
 }

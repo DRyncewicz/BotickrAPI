@@ -12,5 +12,9 @@ public class BookingEntity : AuditableEntity
 
     public DateTime BookingTime { get; set; }
 
-    public string Status { get; set; } 
+    public string Status { get; set; }
+
+    public BookingDetailEntity BookingDetail { get; set; }
+
+    public EventEntity Event { get; set; }
 }

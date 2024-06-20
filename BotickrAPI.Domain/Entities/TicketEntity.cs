@@ -14,5 +14,5 @@ public class TicketEntity : AuditableEntity
 
     public EventEntity Event { get; set; }
 
-    public ICollection<BookingDetailEntity> Bookings { get; set; }
+    public ICollection<BookingDetailEntity> BookingDetails { get; set; }
 }

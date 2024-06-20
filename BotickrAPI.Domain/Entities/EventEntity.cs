@@ -29,4 +29,6 @@ public class EventEntity : AuditableEntity
     public ICollection<TicketEntity> Tickets { get; set; }
 
     public ICollection<EventArtistsEntity> EventArtists { get; set; }
+
+    public ICollection<BookingEntity> Bookings { get; set; }
 }

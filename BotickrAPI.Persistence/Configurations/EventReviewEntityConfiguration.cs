@@ -16,5 +16,9 @@ public static class EventReviewEntityConfiguration
         builder.Property(p => p.UserId).IsRequired();
         builder.Property(p => p.Rating).IsRequired();
         builder.Property(p => p.Description).IsRequired();
+
+        builder.HasOne(p => p.Event)
+            .WithMany(p => p.Reviews)
+            .HasForeignKey(p => p.EventId);
     }
 }
