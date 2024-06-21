@@ -4,11 +4,11 @@ namespace BotickrAPI.Domain.Entities;
 
 public class ArtistEntity : AuditableEntity
 {
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; } 
 
-    public string Surname { get; set; } = string.Empty;
+    public string Surname { get; set; } 
 
-    public string ImagePath { get; set; } = string.Empty;
+    public string ImagePath { get; set; }
 
     public int? Age { get; set; }
 
@@ -16,13 +16,13 @@ public class ArtistEntity : AuditableEntity
 
     public string? BirthCity { get; set; }
 
-    public string Discipline { get; set; } = string.Empty;
+    public string Discipline { get; set; }
 
-    public string Description { get; set; } = string.Empty;
+    public string Description { get; set; }
 
     public int Likes { get; set; } = 0;
 
-    public ICollection<TicketEntity> Tickets { get; set; } = [];
+    public ICollection<TicketEntity> Tickets { get; set; } 
 
-    public ICollection<EventArtistsEntity> Events { get; set; } = [];
+    public ICollection<EventArtistsEntity> EventArtists { get; set; }
 }

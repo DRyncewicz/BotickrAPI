@@ -10,7 +10,7 @@ public class BookingDetailEntity : AuditableEntity
 
     public int Quantity { get; set; }
 
-    public BookingEntity Booking { get; set; } = new BookingEntity();
+    public BookingEntity Booking { get; set; }
 
-    public TicketEntity Ticket { get; set; } = new TicketEntity();
+    public TicketEntity Ticket { get; set; }
 }

@@ -6,7 +6,7 @@ public class EventArtistsEntity
 
     public int EventId { get; set; }
 
-    public EventEntity Event { get; set; } = new();
+    public EventEntity Event { get; set; } 
 
-    public ArtistEntity Artist { get; set; } = new();
+    public ArtistEntity Artist { get; set; } 
 }

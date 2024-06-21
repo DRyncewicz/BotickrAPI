@@ -32,7 +32,7 @@ public class AddEventCommandHandler(IEventRepository _eventRepository,
             var eventEntity = _mapper.Map<EventEntity>(request.NewEvent);
             eventEntity.OrganizerId = "TODO add from token";
             eventEntity.Status = EventStatus.Waiting.ToString();
-            var eventId = await _eventRepository.AddAsync(eventEntity, cancellationToken);    
+            var eventId = await _eventRepository.AddAsync(eventEntity, cancellationToken);
 
             IList<EventArtistsEntity> eventArtistsEntity = new List<EventArtistsEntity>();
             foreach (int id in request.NewEvent.ArtistIds)
@@ -44,15 +44,18 @@ public class AddEventCommandHandler(IEventRepository _eventRepository,
                 });
             }
 
-            var isSuccess =  await _eventArtistsRepository.AddRangeAsync(eventArtistsEntity, cancellationToken);
+            var isSuccess = await _eventArtistsRepository.AddRangeAsync(eventArtistsEntity, cancellationToken);
             if (!isSuccess) throw new Exception();
 
-            var tickets = _mapper.Map<IEnumerable<TicketEntity>>(request.NewEvent.TicketDtos);
+            var tickets = _mapper.Map<IEnumerable<TicketEntity>>(request.NewEvent.TicketDtos).ToList();
+            tickets.ForEach(t => t.EventId = eventId);
+
             await _ticketRepository.AddRangeAsync(tickets, cancellationToken);
 
             await transaction.CommitAsync(cancellationToken);
             return eventId;
-        }catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             await transaction.RollbackAsync(cancellationToken);
             throw new Exception();

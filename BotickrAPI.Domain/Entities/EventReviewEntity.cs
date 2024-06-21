@@ -6,11 +6,11 @@ public class EventReviewEntity : AuditableEntity
 {
     public int EventId { get; set; }
 
-    public string UserId { get; set; } = string.Empty;
+    public string UserId { get; set; } 
 
     public int Rating { get; set; }
 
-    public string Description { get; set; } = string.Empty;
+    public string Description { get; set; } 
 
-    public EventEntity Event { get; set; } = new EventEntity();
+    public EventEntity Event { get; set; } 
 }

@@ -4,9 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BotickrAPI.Persistence.Configurations;
 
-public class ArtistEntityConfiguration : IEntityTypeConfiguration<ArtistEntity>
+public static class ArtistEntityConfiguration 
 {
-    public void Configure(EntityTypeBuilder<ArtistEntity> builder)
+    public static void Configure(ModelBuilder modelBuilder)
+    {
+        SetArtist(modelBuilder.Entity<ArtistEntity>());
+    }
+    public static void SetArtist(EntityTypeBuilder<ArtistEntity> builder)
     {
         builder.Property(p => p.Name).IsRequired();
         builder.Property(p => p.Surname).IsRequired();
