@@ -6,6 +6,7 @@ using BotickrAPI.Domain.Entities;
 using BotickrAPI.Application.Abstractions.Services;
 using BotickrAPI.Persistence.Seeds;
 using BotickrAPI.Persistence.Configurations;
+using System.Reflection.Emit;
 
 namespace BotickrAPI.Persistence.DbContext
 {
@@ -38,8 +39,10 @@ namespace BotickrAPI.Persistence.DbContext
             _dateTime = dateTime;
         }
 
-        public void Migrate()
+        public void Migrate(ModelBuilder modelBuilder)
         {
+            modelBuilder.LocationDataSeed();
+
             Database.Migrate();
         }
 
@@ -53,7 +56,6 @@ namespace BotickrAPI.Persistence.DbContext
             LocationEntityConfiguration.Configure(modelBuilder);
             BookingDetailEntityConfiguration.Configure(modelBuilder);
             EventArtistsEntityConfiguration.Configure(modelBuilder);
-            modelBuilder.LocationDataSeed();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

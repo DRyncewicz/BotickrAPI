@@ -1,7 +1,7 @@
 ﻿using BotickrAPI.Domain.Repositories;
 using FluentValidation;
 
-namespace BotickrAPI.Application.Features.Events.Commands;
+namespace BotickrAPI.Application.Features.Events.Commands.AddEvent;
 
 public class AddEventCommandValidator : AbstractValidator<AddEventCommand>
 {

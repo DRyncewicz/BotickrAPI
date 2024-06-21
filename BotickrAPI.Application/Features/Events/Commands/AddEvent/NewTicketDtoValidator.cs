@@ -2,7 +2,7 @@
 using BotickrAPI.Application.Dtos.Tickets;
 using FluentValidation;
 
-namespace BotickrAPI.Application.Features.Events.Commands;
+namespace BotickrAPI.Application.Features.Events.Commands.AddEvent;
 
 public class NewTicketDtoValidator : AbstractValidator<NewTicketDto>
 {

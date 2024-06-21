@@ -5,7 +5,7 @@ using BotickrAPI.Domain.Repositories;
 using BotickrAPI.Domain.Transactions;
 using MediatR;
 
-namespace BotickrAPI.Application.Features.Events.Commands;
+namespace BotickrAPI.Application.Features.Events.Commands.AddEvent;
 
 public class AddEventCommandHandler(IEventRepository _eventRepository,
                                     IEventArtistsRepository _eventArtistsRepository,
@@ -30,7 +30,8 @@ public class AddEventCommandHandler(IEventRepository _eventRepository,
         try
         {
             var eventEntity = _mapper.Map<EventEntity>(request.NewEvent);
-            eventEntity.OrganizerId = "TODO add from token";
+            //TODO: Add organizer ID after implementing authorization server from Bearer.
+            eventEntity.OrganizerId = "Test";
             eventEntity.Status = EventStatus.Waiting.ToString();
             var eventId = await _eventRepository.AddAsync(eventEntity, cancellationToken);
 

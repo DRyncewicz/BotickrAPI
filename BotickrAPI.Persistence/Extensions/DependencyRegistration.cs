@@ -22,7 +22,7 @@ public static class DependencyRegistration
         services.AddScoped<ITicketRepository, TicketRepository>();
         services.AddScoped<IEventArtistsRepository, EventArtistsRepository>();
         services.AddScoped<IDatabaseTransaction, DatabaseTransaction>();
-
+        services.AddScoped<ModelBuilder>();
         return services;
     }
     public static IApplicationBuilder MigrateDatabase(this IApplicationBuilder app)
@@ -30,7 +30,9 @@ public static class DependencyRegistration
         using (var scope = app.ApplicationServices.CreateScope())
         {
             var dbContext = scope.ServiceProvider.GetService<DatabaseContext>();
-            dbContext?.Migrate();
+            var modelBuilder = scope.ServiceProvider.GetService<ModelBuilder>();
+
+            dbContext?.Migrate(modelBuilder);
         }
 
         return app;

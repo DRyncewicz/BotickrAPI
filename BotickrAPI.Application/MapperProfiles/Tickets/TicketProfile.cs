@@ -20,6 +20,9 @@ public class TicketProfile : Profile
             .ForMember(dest => dest.ModifiedBy, method => method.Ignore())
             .ForMember(dest => dest.Inactivated, method => method.Ignore())
             .ForMember(dest => dest.InactivatedBy, method => method.Ignore())
+            .ForMember(dest => dest.EventId, method => method.Ignore())
+            .ForMember(dest => dest.Id, method => method.Ignore())
+            .ForMember(dest => dest.CreatedBy, method => method.Ignore())
             .ReverseMap();
     }
 }
