@@ -3,14 +3,25 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace BotickrAPI.IntegrationTests.Configuration.CommonWAF
 {
-    public class BotickrWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>, IDisposable where TProgram : class
+    public class BotickrWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
     {
-        public const string dbName = "BotickrAPIIntegrationTestsDb";
+        private string _dbName;
+
+        public BotickrWebApplicationFactory(string dbName)
+        {
+            _dbName = dbName;
+        }
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.UseEnvironment("Testing");
-
+            builder.ConfigureAppConfiguration((context, config) =>
+            {
+                config.AddInMemoryCollection(new Dictionary<string, string>
+                {
+                    {"ConnectionStrings:DefaultConnectionString", $"Server=(localdb)\\mssqllocaldb;Database={_dbName};Trusted_Connection=True;MultipleActiveResultSets=true"}
+                });
+            });
             builder.ConfigureServices(services =>
             {
                 var sp = services.BuildServiceProvider();
@@ -24,23 +35,5 @@ namespace BotickrAPI.IntegrationTests.Configuration.CommonWAF
             });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            try
-            {
-                using (var scope = Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
-                {
-                    var applicationDbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-                    applicationDbContext.Database.EnsureDeleted();
-                    GC.SuppressFinalize(this);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Something went wrong on disposing test database unit: " + ex.Message);
-            }
-
-            base.Dispose(disposing);
-        }
     }
 }

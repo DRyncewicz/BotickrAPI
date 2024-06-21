@@ -16,7 +16,7 @@ public class AddEventCommandValidator : AbstractValidator<AddEventCommand>
             .WithMessage("Length should be greater than 10 chars")
             .MaximumLength(50)
             .WithMessage("Length should be lower than 50 chars")
-            .Matches(@"^[\w/]+$")
+            .Matches(@"^[\w/ ]+$")
             .WithMessage("Name field can contain only alphabetic characters, numbers and '/'");
 
         RuleFor(p => p.NewEvent)
