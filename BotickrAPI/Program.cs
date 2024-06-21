@@ -27,7 +27,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.MigrateDatabase();
+
+if (app.Environment.EnvironmentName != "Testing")
+{
+    app.MigrateDatabase();
+}
 
 app.UseHttpsRedirection();
 
@@ -38,3 +42,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program();

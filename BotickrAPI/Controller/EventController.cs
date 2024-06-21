@@ -1,6 +1,6 @@
 ﻿using BotickrAPI.Application.Dtos.Events;
 using BotickrAPI.Application.Dtos.Locations;
-using BotickrAPI.Application.Features.Events.Commands;
+using BotickrAPI.Application.Features.Events.Commands.AddEvent;
 using BotickrAPI.Application.Features.Events.Queries.GetEventsByFilters;
 using BotickrAPI.Controller.Base;
 using MediatR;
