@@ -9,16 +9,17 @@ using Xunit;
 
 namespace BotickrAPI.IntegrationTests.Controller;
 
-public class LocationControllerTests : IClassFixture<BotickrWebApplicationFactory<Program>>
+
+public class LocationControllerTests : IDisposable
 {
     private readonly HttpClient _unauthorizedHttpClient;
 
-    private BotickrWebApplicationFactory<Program> _botickrTestApplicationFactory;
+    private BotickrWebApplicationFactory<Program> _factory;
 
-    public LocationControllerTests(BotickrWebApplicationFactory<Program> botickrTestApplicationFactory)
+    public LocationControllerTests()
     {
-        _botickrTestApplicationFactory = botickrTestApplicationFactory;
-        _unauthorizedHttpClient = botickrTestApplicationFactory.CreateClient();
+        _factory = new BotickrWebApplicationFactory<Program>(nameof(LocationControllerTests));
+        _unauthorizedHttpClient = _factory.CreateClient();
         Seed();
     }
 
@@ -36,7 +37,7 @@ public class LocationControllerTests : IClassFixture<BotickrWebApplicationFactor
     }
     private void Seed()
     {
-        using (var scope = _botickrTestApplicationFactory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+        using (var scope = _factory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
             var applicationDbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
             LocationEntity location = new()
@@ -54,6 +55,15 @@ public class LocationControllerTests : IClassFixture<BotickrWebApplicationFactor
 
             applicationDbContext.Locations.AddRange(location, location2);
             applicationDbContext.SaveChanges();
+        }
+    }
+    public void Dispose()
+    {
+        using (var scope = _factory.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+        {
+            var applicationDbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+            applicationDbContext.Database.EnsureDeleted();
+            GC.SuppressFinalize(this);
         }
     }
 }

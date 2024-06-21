@@ -32,7 +32,7 @@ public class EventController(IMediator _mediator) : ApiControllerBase
         return Created(string.Empty, result);
     }
 
-    [HttpGet]
+    [HttpGet("GetByFilters")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<EventDto>))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(ProblemDetails))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
