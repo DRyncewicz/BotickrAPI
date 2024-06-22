@@ -12,21 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-
-    services:
-      sqlserver:
-        image: mcr.microsoft.com/mssql/server:2017-latest
-        env:
-          ACCEPT_EULA: Y
-          SA_PASSWORD: "Your_password123"
-        ports:
-          - 1433:1433
-        options: >-
-          --health-cmd "wget --quiet --tries=1 --spider http://localhost:1433 || exit 1"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -34,21 +20,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Wait for SQL Server to be healthy
-      run: |
-        echo "Waiting for SQL Server to start..."
-        while ! nc -z localhost 1433; do
-          sleep 1
-        done
-        echo "SQL Server is up and running."
-    - name: Set up database
-      run: |
-        /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "Your_password123" -Q "CREATE DATABASE TestDb"
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      env:
-        ConnectionStrings__DefaultConnection: "Server=localhost;Database=TestDb;User Id=sa;Password=Your_password123;"
       run: dotnet test --no-build --verbosity normal
