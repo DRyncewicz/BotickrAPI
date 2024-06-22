@@ -22,6 +22,7 @@ public static class DependencyRegistration
         services.AddScoped<ITicketRepository, TicketRepository>();
         services.AddScoped<IEventArtistsRepository, EventArtistsRepository>();
         services.AddScoped<IDatabaseTransaction, DatabaseTransaction>();
+        services.AddScoped<IBookingRepository, BookingRepository>();
         services.AddScoped<ModelBuilder>();
         return services;
     }

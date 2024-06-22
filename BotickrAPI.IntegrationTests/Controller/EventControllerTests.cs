@@ -1,6 +1,7 @@
 ﻿using BotickrAPI.Application.Dtos.Events;
 using BotickrAPI.Application.Dtos.Tickets;
 using BotickrAPI.Application.Features.Events.Commands.AddEvent;
+using BotickrAPI.Application.Features.Events.Queries.GetEventDetailsById;
 using BotickrAPI.Domain.Entities;
 using BotickrAPI.Domain.Enums;
 using BotickrAPI.IntegrationTests.Configuration.CommonWAF;
@@ -24,6 +25,7 @@ public class AddEventCommandHandlerTests :  IDisposable
         SeedDatabase();
     }
 
+    #region GetEventsByFilters
     [Fact]
     public async Task GetEventsByFilters_ShouldReturnFilteredEvents()
     {
@@ -102,7 +104,9 @@ public class AddEventCommandHandlerTests :  IDisposable
         result.Should().NotBeNull();
         result.Should().BeEmpty();
     }
+    #endregion
 
+    #region AddEvent
     [Fact]
     public async Task AddEvent_ShouldReturnInternalServerError_WhenExceptionOccurs()
     {
@@ -181,6 +185,75 @@ public class AddEventCommandHandlerTests :  IDisposable
         eventId.Should().BeGreaterThan(0);
     }
 
+    #endregion
+
+    #region GetDetailsById
+
+    [Fact]
+    public async Task GetDetailsById_ShouldReturnsOk()
+    {
+        // Arrange
+        var query = new GetEventDetailsByIdQuery
+        {
+            Id = 1
+        };
+
+        // Act
+        var response = await _httpClient.GetAsync($"/api/Event/{query.Id}/GetDetails");
+        var json = await response.Content.ReadAsStringAsync();
+        var result = string.IsNullOrEmpty(json) ? null : JsonConvert.DeserializeObject<DetailEventInfoDto>(json);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        result.Description.Should().Be("Description1");
+        result.Duration.Should().Be(TimeSpan.FromHours(2));
+        result.Tickets.First().IsSoldOut.Should().Be(false);
+        result.Tickets.First().TotalQuantity.Should().Be(110);
+        result.Tickets.First().AvailableQuantity.Should().Be(10);
+        result.Tickets.First().Price.Should().Be(25);
+
+    }
+
+    [Fact]
+    public async Task GetDetailsById_ShouldReturnNotFound_OnNotExistingEventId()
+    {
+        // Arrange
+        var query = new GetEventDetailsByIdQuery
+        {
+            Id = 1125
+        };
+
+        // Act
+        var response = await _httpClient.GetAsync($"/api/Event/{query.Id}/GetDetails");
+        var json = await response.Content.ReadAsStringAsync();
+        var result = string.IsNullOrEmpty(json) ? null : JsonConvert.DeserializeObject<DetailEventInfoDto>(json);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+
+    [Fact]
+    public async Task GetDetailsById_ShouldReturnOk_OnExistingEventWithoutBookedTickets()
+    {
+        // Arrange
+        var query = new GetEventDetailsByIdQuery
+        {
+            Id = 2
+        };
+
+        // Act
+        var response = await _httpClient.GetAsync($"/api/Event/{query.Id}/GetDetails");
+        var json = await response.Content.ReadAsStringAsync();
+        var result = string.IsNullOrEmpty(json) ? null : JsonConvert.DeserializeObject<DetailEventInfoDto>(json);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        result.Tickets.First().IsSoldOut.Should().Be(false);
+        result.Tickets.First().TotalQuantity.Should().Be(1500);
+        result.Tickets.First().AvailableQuantity.Should().Be(1500);
+        result.Tickets.First().Price.Should().Be(10);
+    }
+    #endregion
 
     private void SeedDatabase()
     {
@@ -243,6 +316,44 @@ public class AddEventCommandHandlerTests :  IDisposable
 
             };
             dbContext.Artists.AddRange(artist1, artist2);
+            dbContext.SaveChanges();
+
+            var ticket1 = new TicketEntity
+            {
+                EventId = 1,
+                Quantity = 110,
+                TicketType = "VIP",
+                Price = 25
+            };
+            var ticket2 = new TicketEntity
+            {
+                EventId = 2,
+                Quantity = 1500,
+                TicketType = "SINGLE",
+                Price = 10
+            };
+            dbContext.Tickets.AddRange(ticket1, ticket2);
+            dbContext.SaveChanges();
+
+            var booking1 = new BookingEntity
+            {
+                BookingTime = new DateTime(2024, 1, 1),
+                EventId = 1,
+                TotalPrice = 2500,
+                Status = "Confirmed",
+                UserId = "UserId"
+            };
+            dbContext.Bookings.Add(booking1);
+            dbContext.SaveChanges();
+
+            var bookingDetails1 = new BookingDetailEntity
+            {
+                BookingId = 1,
+                TicketId = 1,
+                Quantity = 100
+            };
+
+            dbContext.BookingDetails.Add(bookingDetails1);
             dbContext.SaveChanges();
         }
 

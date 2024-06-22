@@ -27,5 +27,19 @@ public class EventProfile : Profile
 
         CreateMap<EventEntity, EventDto>()
             .ForMember(dest => dest.Artists, method => method.MapFrom(src => src.EventArtists.Select(p => p.Artist)));
+
+        CreateMap<EventEntity, DetailEventInfoDto>()
+            .ForMember(dest => dest.EventType, method => method.MapFrom(src => src.EventType))
+            .ForMember(dest => dest.Duration, method => method.MapFrom(src => src.Duration))
+            .ForMember(dest => dest.Description, method => method.MapFrom(src => src.Description))
+            .ForMember(dest => dest.Status, method => method.MapFrom(src => src.Status))
+            .ForMember(dest => dest.StartTime, method => method.MapFrom(src => src.StartTime))
+            .ForMember(dest => dest.LocationId, method => method.MapFrom(src => src.LocationId))
+            .ForMember(dest => dest.Id, method => method.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Name, method => method.MapFrom(src => src.Name))
+            .ForMember(dest => dest.ImagePath, method => method.MapFrom(src => src.ImagePath))
+            .ForMember(dest => dest.Tickets, method => method.Ignore());
+
+
     }
 }
