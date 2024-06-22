@@ -49,4 +49,9 @@ public class EventRepository(IBaseRepository _baseRepository) : IEventRepository
 
         return await query.OrderBy(p => p.StartTime).ToListAsync(ct);
     }
+
+    public async Task<EventEntity> GetByIdAsync(int eventId, CancellationToken ct)
+    {
+        return await _baseRepository.GetAll<EventEntity>().FirstOrDefaultAsync(x => x.Id == eventId, ct);
+    }
 }
