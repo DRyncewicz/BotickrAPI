@@ -13,15 +13,17 @@ using Xunit;
 
 namespace BotickrAPI.IntegrationTests.Controller;
 
-public class AddEventCommandHandlerTests :  IDisposable
+public class EventControllerTests :  IDisposable
 {
     private readonly HttpClient _httpClient;
+    private readonly HttpClient _authorizedHttpClient;
     private readonly BotickrWebApplicationFactory<Program> _factory;
 
-    public AddEventCommandHandlerTests()
+    public EventControllerTests()
     {
-        _factory = new BotickrWebApplicationFactory<Program>(nameof(AddEventCommandHandlerTests));
+        _factory = new BotickrWebApplicationFactory<Program>(nameof(EventControllerTests));
         _httpClient = _factory.CreateClient();
+        _authorizedHttpClient = _factory.GetClient(true);
         SeedDatabase();
     }
 
@@ -108,7 +110,7 @@ public class AddEventCommandHandlerTests :  IDisposable
 
     #region AddEvent
     [Fact]
-    public async Task AddEvent_ShouldReturnInternalServerError_WhenExceptionOccurs()
+    public async Task AddEvent_ShouldReturnUnauthorized_WithUnathorizedClient()
     {
         // Arrange
         var command = new AddEventCommand
@@ -133,6 +135,35 @@ public class AddEventCommandHandlerTests :  IDisposable
         var json = await response.Content.ReadAsStringAsync();
 
         // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+
+    [Fact]
+    public async Task AddEvent_ShouldReturnInternalServerError_WhenExceptionOccurs()
+    {
+        // Arrange
+        var command = new AddEventCommand
+        {
+            NewEvent = new NewEventDto
+            {
+                Name = "New Test Event",
+                EventType = "Concert",
+                StartTime = DateTime.Now.AddDays(30),
+                Duration = TimeSpan.FromHours(2),
+                LocationId = 99,
+                ArtistIds = new List<int> { 1, 2 },
+                TicketDtos = new List<NewTicketDto>
+                {
+                    new NewTicketDto { Price = 50, Quantity = 200, TicketType = "Standard" }
+                }
+            }
+        };
+
+        // Act
+        var response = await _authorizedHttpClient.PostAsJsonAsync("/api/Event", command);
+        var json = await response.Content.ReadAsStringAsync();
+
+        // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
@@ -148,7 +179,7 @@ public class AddEventCommandHandlerTests :  IDisposable
         };
 
         // Act
-        var response = await _httpClient.PostAsJsonAsync("/api/Event", invalidCommand);
+        var response = await _authorizedHttpClient.PostAsJsonAsync("/api/Event", invalidCommand);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -176,7 +207,7 @@ public class AddEventCommandHandlerTests :  IDisposable
         };
 
         // Act
-        var response = await _httpClient.PostAsJsonAsync("/api/Event", command);
+        var response = await _authorizedHttpClient.PostAsJsonAsync("/api/Event", command);
         var json = await response.Content.ReadAsStringAsync();
         var eventId = string.IsNullOrEmpty(json) ? 0 : JsonConvert.DeserializeObject<int>(json);
 

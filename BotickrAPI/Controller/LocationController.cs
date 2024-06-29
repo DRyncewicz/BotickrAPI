@@ -2,6 +2,7 @@
 using BotickrAPI.Application.Features.Locations.Queries;
 using BotickrAPI.Controller.Base;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BotickrAPI.Controller;
@@ -18,6 +19,7 @@ public class LocationController(IMediator _mediator) : ApiControllerBase
     /// </summary>
     /// <param name="ct"></param>
     /// <returns></returns>
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<LocationDto>))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(ProblemDetails))]

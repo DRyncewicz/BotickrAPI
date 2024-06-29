@@ -6,6 +6,7 @@ using BotickrAPI.Application.Features.Events.Queries.GetEventsByFilters;
 using BotickrAPI.Controller.Base;
 using BotickrAPI.Domain.Exceptions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BotickrAPI.Controller;
@@ -40,6 +41,7 @@ public class EventController(IMediator _mediator) : ApiControllerBase
     /// <param name="query"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
+    [AllowAnonymous]
     [HttpGet("GetByFilters")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<EventDto>))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(ProblemDetails))]
@@ -57,6 +59,7 @@ public class EventController(IMediator _mediator) : ApiControllerBase
     /// <param name="EventId"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
+    [AllowAnonymous]
     [HttpGet("{EventId}/GetDetails")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DetailEventInfoDto))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(ProblemDetails))]
