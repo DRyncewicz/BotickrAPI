@@ -6,7 +6,7 @@ namespace BotickrAPI.Controller.Base;
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
-[AllowAnonymous]
+[Authorize]
 public class ApiControllerBase : ControllerBase
 {
 }
